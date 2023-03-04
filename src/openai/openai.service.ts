@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpsProxyAgent } from 'hpagent';
 import _ from 'lodash';
-import moment from 'moment';
+import * as moment from 'moment';
 import {
   ChatCompletionRequestMessage,
   Configuration,
@@ -30,14 +30,14 @@ export class OpenaiService {
 
   private readonly httpsAgent = process.env.HTTPS_PROXY_AGENT
     ? new HttpsProxyAgent({
-        keepAlive: true,
-        timeout: this.apiTimeout,
-        keepAliveMsecs: 5000,
-        maxSockets: 256,
-        maxFreeSockets: 256,
-        scheduling: 'lifo',
-        proxy: process.env.HTTPS_PROXY_AGENT,
-      })
+      keepAlive: true,
+      timeout: this.apiTimeout,
+      keepAliveMsecs: 5000,
+      maxSockets: 256,
+      maxFreeSockets: 256,
+      scheduling: 'lifo',
+      proxy: process.env.HTTPS_PROXY_AGENT,
+    })
     : null;
 
   private readonly clients: OpenAIApi[] = [];
@@ -103,5 +103,11 @@ export class OpenaiService {
       { httpsAgent: this.httpsAgent },
     );
     return resp.data;
+  }
+
+  async unofficialChatGPTHealth(): Promise<UnofficialChatGPTResp> {
+    const url = process.env.UNOFFICIAL_CHATGPT_API + '/health';
+    const resp: AxiosResponse<UnofficialChatGPTResp> = await axios.get(url)
+    return resp.data
   }
 }
