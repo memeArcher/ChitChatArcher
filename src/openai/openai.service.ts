@@ -9,7 +9,7 @@ import {
   OpenAIApi,
 } from 'openai';
 import axios, { AxiosResponse } from 'axios';
-import assert from 'node:assert';
+import * as assert from 'node:assert';
 import { validate } from 'uuid';
 
 interface UnofficialChatGPTAsk {
@@ -71,7 +71,7 @@ export class OpenaiService {
 
   async unofficialChatGPTAsk(
     params: UnofficialChatGPTAsk,
-  ): Promise<UnofficialChatGPTAsk> {
+  ): Promise<UnofficialChatGPTResp<UnofficialChatGPTAsk>> {
     const url = process.env.UNOFFICIAL_CHATGPT_API + '/ask';
     const { prompt, conversation_id, parent_id } = params;
     assert.ok(prompt.trim(), `Invalid prompt: ${prompt}`);
@@ -83,7 +83,7 @@ export class OpenaiService {
       !parent_id || validate(parent_id),
       `Invalid parent_id: ${parent_id}`,
     );
-    const resp: AxiosResponse<UnofficialChatGPTAsk> = await axios.post(
+    const resp: AxiosResponse<UnofficialChatGPTResp<UnofficialChatGPTAsk>> = await axios.post(
       url,
       {
         prompt,
