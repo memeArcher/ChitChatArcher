@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CqhttpService } from './cqhttp.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { CqhttpService } from './cqhttp.service'
 
 describe('CqhttpService', () => {
-  let service: CqhttpService;
+  let service: CqhttpService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [CqhttpService],
-    }).compile();
+    }).compile()
 
-    service = module.get<CqhttpService>(CqhttpService);
-  });
+    service = module.get<CqhttpService>(CqhttpService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    expect(service).toBeDefined()
+  })
+})

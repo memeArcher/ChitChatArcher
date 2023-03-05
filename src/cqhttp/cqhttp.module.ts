@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { CqhttpService } from './cqhttp.service';
-import { CqhttpController } from './cqhttp.controller';
+import { Module } from '@nestjs/common'
+import { CqhttpService } from './cqhttp.service'
+import { CqhttpController } from './cqhttp.controller'
 
 @Module({
   providers: [CqhttpService],
-  controllers: [CqhttpController]
+  controllers: [CqhttpController],
 })
 export class CqhttpModule {}
